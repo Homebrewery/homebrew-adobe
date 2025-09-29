@@ -5,9 +5,8 @@ Homebrew _[tap]_ for [Adobe] apps, and even [plugins]!
 Install
 -------
 ~~~ sh
-brew tap danielbayley/adobe
-brew cask install #cask
-brew install #formula
+brew tap Homebrewery/adobe
+brew install #cask #formula
 ~~~
 
 [Some] [_Cask_]s rely on an [environment variable] to function, which can be set in your [shell startup file], for example: `export HOMEBREW_ADOBE_CASK=value >> ~/.bashrc`. Further information will be displayed as [`caveats`], which are always available by running `brew info cask`.
@@ -32,7 +31,7 @@ License
 
 [guide]:                  https://github.com/caskroom/homebrew-cask/blob/master/doc/development/adding_a_cask.md
 [existing]:               Casks
-[some]:                   https://github.com/danielbayley/homebrew-adobe/blob/master/Casks/rubberhose.rb#L20-L21
+[some]:                   https://github.com/Homebrewery/homebrew-adobe/blob/master/Casks/rubberhose.rb#L20-L21
 [`caveats`]:              https://github.com/caskroom/homebrew-cask/blob/master/doc/cask_language_reference/stanzas/caveats.md#caveats
 
 [environment variable]:   https://en.wikipedia.org/wiki/environment_variable
