@@ -1,6 +1,6 @@
 cask "adobe-illustrator-scripts-sergey-osokin" do
-  version "2025.5.2,116f318"
-  sha256 "4f38acae7fcbf3568e62d3c0888fe0f963f17b8dc64943164d82079f095b43d9"
+  version "2026.1.23,48de0ff"
+  sha256 "5d9e5d529d045a759067d4bcbe12c0bf3c8a36844a012eac728f57df6c2eb25b"
 
   language "ru" do
     ".ru"
