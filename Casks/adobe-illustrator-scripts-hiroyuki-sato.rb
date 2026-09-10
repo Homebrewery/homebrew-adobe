@@ -21,31 +21,19 @@ cask "adobe-illustrator-scripts-hiroyuki-sato" do
   desc "JavaScript scripts for #{app} CSx"
   homepage "http://#{domain}/#{language.delete_prefix "_"}"
 
-  livecheck do
-    regex(/(\d{4}(?:[.-]\d{2}){2})/)
-  end
+  livecheck { regex(/(\d{4}(?:[.-]\d{2}){2})/) }
 
   year = "[0-9]" * 4
   scripts = appdir.glob("#{app} #{year}/Presets.localized/*/Scripts").max
   subpath = File.basename url.uri.path, ".*"
 
-  staged_path.glob("#{subpath}/{*,*/*/*}.jsx").each do |path|
-    target = scripts/author/path.basename
-    next if path.to_s.include? "_oldUI"
+  staged_path.glob("#{subpath}/{*,*/*/*}.jsx").each do
+    target = scripts/author/it.basename
+    next if it.to_s.include? "_oldUI"
 
-    artifact path, target: target unless target.exist?
+    artifact it, target: target unless target.exist?
   end
-
-  uninstall_preflight do
-    receipt = caskroom_path/".metadata/INSTALL_RECEIPT.json"
-    json = JSON.load_file receipt, symbolize_names: true if receipt.exist?
-    next if json.nil?
-
-    json[:uninstall_artifacts].compact.map do |uninstall|
-      path = uninstall[:artifact]&.last&.dig :target
-      system_command "/bin/rm", args: [path], sudo: true unless path.nil?
-    end
-  end
+  preflight_steps { run true }
 
   uninstall rmdir: scripts/author
 

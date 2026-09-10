@@ -30,26 +30,15 @@ cask "adobe-illustrator-scripts-hiroyuki-sato-etc" do
 
   year = "[0-9]" * 4
   scripts = appdir.glob("#{app} #{year}/Presets.localized/*/Scripts").max
-  subpath = "#{owner}-#{repo}-#{version.after_comma}"
+  subpath = "#{owner}-#{repo}-#{version.csv.second}"
 
-  staged_path.glob("#{subpath}/{*,*/*}.jsx").each do |path|
-    target = scripts/author/path.basename.to_s
-                                .split(/(?<=[a-z])(?=[A-Z])/)
-                                .map(&:capitalize)
-                                .join(" ")
+  staged_path.glob("#{subpath}/{*,*/*}.jsx").each do
+    target = scripts/author/it.basename.to_s
+                              .split(/(?<=[a-z])(?=[A-Z])/)
+                              .map(&:capitalize)
+                              .join(" ")
 
-    artifact path, target: target unless target.exist?
-  end
-
-  uninstall_preflight do
-    receipt = caskroom_path/".metadata/INSTALL_RECEIPT.json"
-    json = JSON.load_file receipt, symbolize_names: true if receipt.exist?
-    next if json.nil?
-
-    json[:uninstall_artifacts].compact.map do |uninstall|
-      path = uninstall[:artifact]&.last&.dig :target
-      system_command "/bin/rm", args: [path], sudo: true unless path.nil?
-    end
+    artifact it, target: target unless target.exist?
   end
 
   uninstall rmdir: scripts/author
